@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    // Teamsテーブルとのリレーション （主テーブル側）
+    public function o_teams() {
+	return $this->hasMany('App\Models\Team');
+}
+    // Teamsテーブルとの多対多リレーション
+    public function my_teams() {
+    return $this->belongsToMany('App\Models\Team')->withPivot('role');
+    }
+    
+    
+    
 }

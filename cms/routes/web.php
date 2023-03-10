@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController; //追加
 use App\Models\Book; //追加
+use App\Http\Controllers\TeamController; //追加
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +39,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//上部でこれをuseしておく
+
+
+//チーム：ダッシュボード
+Route::get('/teams', [TeamController::class, 'index'])->name('team_index');
+
+//チーム：追加
+Route::post('teams', [TeamController::class, 'store'])->name('team_store');
+
+//チーム：更新画面
+Route::get('/teamssedit/{team}',[TeamController::class,"edit"])->name('team_edit'); 
+
+//チーム更新処理
+Route::post('teams/update',  [TeamController::class, 'update'])->name('team_update');
+
+//チーム：参加
+Route::get('/team/{team_id}', [TeamController::class, 'join'])->name('team_join');
+
 
 require __DIR__.'/auth.php';
